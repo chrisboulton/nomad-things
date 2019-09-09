@@ -41,7 +41,7 @@ Creates a Consul service with the mapped port for http/80, but Connect services
 will try to use that mapped port when delivering traffic locally. The fix is to
 use the port value:
 
-```
+```hcl
     network {
       mode = "bridge"
       port "http" {
