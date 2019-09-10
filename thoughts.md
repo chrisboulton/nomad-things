@@ -112,7 +112,7 @@ possible permutations.
 
 Something like this might be nice to simplify routing for `http-out`:
 
-```
+```hcl
 kind = "service-router"
 name = "http-1"
 routes = [
