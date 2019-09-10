@@ -84,3 +84,53 @@ See also https://github.com/hashicorp/consul/issues/6454
 ## Exposing Admin Port for Envoy (Prometheus Metrics Scraping)
 
 Need to look into.
+
+## DC Based Routing
+
+Right now we have a couple of L5D routers that allow for routing with a Consul DC
+(`us-central1`) based on header (`X-BC-Datacenter`). We want to be able to leverage
+something similar for international expansion.
+
+ie:
+
+```
+Host: backend-service1.linkerd
+X-BC-Datacenter: au-southeast1
+
+GET /
+```
+
+- Route to `backend-service1` in au-southeast1.
+
+Need to look at a service resolver/router to see if this is supported? Seems like
+this might need `ServiceRouteDestination` to support DCs?
+
+We'd want to do this without building a single `service-router` entry with all the
+possible permutations.
+
+## Capture Groups for Service Routers & Destinations
+
+Something like this might be nice to simplify routing for `http-out`:
+
+```
+kind = "service-router"
+name = "http-1"
+routes = [
+  {
+    match {
+      http {
+        header = [
+          {
+            name = ":authority"
+            regex = "(?<dest_service>[^\.]+)."
+          }
+        ]
+      }
+    }
+
+    destination {
+      service = "$dest_service"
+    }
+  }
+]
+```
