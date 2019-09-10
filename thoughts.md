@@ -77,7 +77,9 @@ worth looking into
 ## Intentions Only Apply on Service Start
 
 Documented behaviour in Consul - probably because of persistent connections/
-how authz plugins in Envoy work
+how authz plugins in Envoy work.
+
+See also https://github.com/hashicorp/consul/issues/6454
 
 ## Exposing Admin Port for Envoy (Prometheus Metrics Scraping)
 
