@@ -108,6 +108,10 @@ this might need `ServiceRouteDestination` to support DCs?
 We'd want to do this without building a single `service-router` entry with all the
 possible permutations.
 
+It seems like Mesh Gateways are supposed to be the approach here, but I don't think
+it's possible to select/choose a gateway based on a header. Maybe a new config
+type should be added to support this?
+
 ## Capture Groups for Service Routers & Destinations
 
 Something like this might be nice to simplify routing for `http-out`:
